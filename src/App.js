@@ -26,13 +26,29 @@ const mario = {
   ativa: false,
 };
 
+const App = () => {
+  const dados = luana;
 
-function App() {
-  return (
-    <div>
-      <h1>hello</h1>
-    </div>
-  );
-}
+  // let sumPrice = 0 
+
+  // dados.compras.forEach(e => {
+  //   const removeString = e.preco.replace('R$ ', '')
+  //   const formatPrice = parseInt(removeString)
+  //   sumPrice += formatPrice
+  //   console.log(sumPrice);
+  // })
+
+  const sumPrice = dados.compras
+    .map((e) => Number(e.preco.replace('R$ ', '')))
+    .reduce((a, b) => a + b)
+
+  return <div>
+    <p>Nome: {dados.cliente}</p>
+    <p>Idade: {dados.idade}</p>
+    <p>Siuação: <span style={{color: dados.ativa ? 'green' : 'red'}}>{dados.ativa ? 'Ativa' : 'Inativa'}</span></p>
+    <p>Total gasto: {sumPrice}</p>
+    <p>{sumPrice > 10000 ? 'Você gasta muito' : ''}</p>
+  </div>;
+};
 
 export default App;
