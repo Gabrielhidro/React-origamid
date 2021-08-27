@@ -14,10 +14,13 @@ export const GlobalContext = ({children}) => {
         }
         getItems()
     }, [])
-    console.log(apiDatas);
+
+    function limparDados() {
+        setApiDatas(null);
+      }
 
     return (
-        <UserContext.Provider value={{apiDatas}}>
+        <UserContext.Provider value={{apiDatas, limparDados}}>
             {children}
         </UserContext.Provider>
     )

@@ -3,12 +3,16 @@ import { UserContext } from "./UserContext";
 
 export default function Produtos(){
 
-    const {apiDatas} = useContext(UserContext)
-    console.log(apiDatas);
+    const {apiDatas, limparDados} = useContext(UserContext)
 
     return (
-        <h1>
-            OI
-        </h1>
+        <div>
+            {apiDatas && apiDatas.map(item => {
+                return (
+                    <li>{item.nome}</li>
+                )
+            })}
+            <button onClick={limparDados}>Limpar</button>
+        </div>
     )
 }
