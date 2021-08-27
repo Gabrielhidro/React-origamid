@@ -5,8 +5,16 @@
 // defina uma função chamada limparDados que é responsável por zerar os dados de produto
 // e exponha essa função no contexto global
 
+import Produtos from "./Produtos";
+import { GlobalContext } from "./UserContext";
+
+
 export default function App(){
+
+
   return (
-    <h1>oi</h1>
+    <GlobalContext>
+      <Produtos />
+    </GlobalContext>
   )
 };
