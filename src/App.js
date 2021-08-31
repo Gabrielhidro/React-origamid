@@ -1,20 +1,99 @@
-// Utilize o GlobalContext do exemplo anterior para puxar os dados da API abaixo:
-// https://ranekapi.origamid.dev/json/api/produto/
-// assim que o usuário acessar o app
-// coloque os dados da API no contexto global, dando acesso aos dados da mesma
-// defina uma função chamada limparDados que é responsável por zerar os dados de produto
-// e exponha essa função no contexto global
+// Faça um fetch (POST) para a API abaixo
+// Para a criação ser aceita é necessário enviar dodos de:
+// nome, email, senha, cep, rua, numero, bairro, cidade e estado
+// Mostre uma mensagem na tela, caso a resposta da API seja positiva
 
-import Produtos from "./Produtos";
-import { GlobalContext } from "./UserContext";
-
+import { useState } from "react";
 
 export default function App(){
 
+  const formFields = [
+    {
+      id: 'nome',
+      label: 'Nome',
+      type: 'text',
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+    },
+    {
+      id: 'senha',
+      label: 'Senha',
+      type: 'password',
+    },
+    {
+      id: 'cep',
+      label: 'Cep',
+      type: 'text',
+    },
+    {
+      id: 'rua',
+      label: 'Rua',
+      type: 'text',
+    },
+    {
+      id: 'numero',
+      label: 'Numero',
+      type: 'text',
+    },
+    {
+      id: 'bairro',
+      label: 'Bairro',
+      type: 'text',
+    },
+    {
+      id: 'cidade',
+      label: 'Cidade',
+      type: 'text',
+    },
+    {
+      id: 'estado',
+      label: 'Estado',
+      type: 'text',
+    },
+  ];
+
+  const [ form, setForm ] = useState({
+    nome: '',
+    email: '',
+    senha: '',
+    cep: '',
+    rua: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+  })
+
+  function handleSubmit(event){
+    event.preventDefault()
+    fetch('https://ranekapi.origamid.dev/json/api/usuario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
+  }
+  
+  function handleChange(target){
+    const {id, value} = target.target
+    setForm({...form, [id]: value})
+  }
 
   return (
-    <GlobalContext>
-      <Produtos />
-    </GlobalContext>
+    <form onSubmit={handleSubmit}>
+
+      {formFields.map(({ id, label, type }) => (
+        <div key={id}>
+          <label htmlFor={id}>{label}</label>
+          <input type={type} id={id} value={form[id]} onChange={handleChange} />
+        </div>
+      ))}
+
+      <button type="submit">Enviar</button>
+    </form>
   )
-};
+}
