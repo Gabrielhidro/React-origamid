@@ -4,10 +4,15 @@
     export default function App(){
         const [select, setSelect] = useState('');
         const [radio, setRadio] = useState('');
+        const [checkbox, setCheckbox] = useState(false)
 
         function handleChange({target}){
             setRadio(target.value)
         }
+
+        function handleCheck({ target }) {
+            setCheckbox(target.checked);
+          }
       
         return (
         <>
@@ -37,6 +42,19 @@
                 <div>
                     {radio}
                 </div>
+            </form>
+
+                                        {/* Checkbox */}
+            <form>
+                <label>
+                    <input
+                    type="checkbox"
+                    value="termos"
+                    checked={checkbox}
+                    onChange={handleCheck}
+                    />
+                    Li os termos.
+                </label>
             </form>
         </>
         );
